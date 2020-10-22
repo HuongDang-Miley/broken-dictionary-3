@@ -1,12 +1,10 @@
 const Word = require('../models/Word');
 
 module.exports = {
-  getAllWords: (res, req) => {
+  getAllWords: (req, res) => {
     Word.find()
-      .then((foundWords) => {
-        return res.render('main/index', { wordsList: foundWords });
-      })
-      .catch((err) => res.json({ err }));
+      .then((foundWords) => { return res.render('main/index', { wordsList: foundWords }); })
+      .catch(err => res.json({ err }))
   },
   getSingleWord: (req, res) => {
     Word.findById(req.params.wordId)
@@ -84,7 +82,7 @@ module.exports = {
         }
         return res
           .status(200)
-          .render('/main/update-word', { foundWord: dbWord });
+          .render('main/update-word', { foundWord: dbWord });
       })
       .catch((err) => {
         return res.status(500).json({ message: 'Server Error' });
